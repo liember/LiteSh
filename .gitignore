@@ -64,3 +64,7 @@ _deps
 # End of https://www.toptal.com/developers/gitignore/api/vscode,c++,cmake
 
 build/
+
+.vscode/
+
+lol/
