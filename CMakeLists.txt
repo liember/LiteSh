@@ -9,6 +9,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories(${PROJECT_SOURCE_DIR})
 add_executable(lab2 fctrl.cpp)
+
+target_include_directories(lab2 PRIVATE include)
+
 target_link_libraries(lab2)
 
 
