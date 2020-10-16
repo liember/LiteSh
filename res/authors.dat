@@ -1,0 +1,20 @@
+FILESYSTEM CONTROLLER
+
+Usage: fctrl [OPTION...] [FILE...]
+
+With FILE.
+
+  -M, --move           moves file => fctrl -M [FILE] [DEST_FILE]
+  -C, --copy           copy file => fctrl -C [FILE] [DEST_FILE]
+  -D, --delete         delete file => fctrl -D [FILE]
+  -L, --list           shows list of content of current folder => fctrl -L [FILE]]
+  -S, --size      suppress repeated empty output lines
+  -P, --show-proc          display TAB characters as ^I
+  -h, --help                       (ignored)
+
+Examples:
+  fctrl f - g  Output f's contents, then standard input, then g's contents.
+
+GNU coreutils online help: nobody helps you
+Full documentation at:  nowhere
+Author Ivan Grigorev
