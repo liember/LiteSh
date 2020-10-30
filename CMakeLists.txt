@@ -1,17 +1,17 @@
-cmake_minimum_required(VERSION 3.0)
-
-project(fsctrl)
+cmake_minimum_required(VERSION 3.10)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-include_directories(${PROJECT_SOURCE_DIR})
-add_executable(lab2 fctrl.cpp)
+project(liteSH CXX)
+include_directories(src)
 
-target_include_directories(lab2 PRIVATE include)
+add_subdirectory(lib/googletest)
+add_subdirectory(src)
+add_subdirectory(tests)
 
-target_link_libraries(lab2)
+
 
 
