@@ -5,9 +5,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-project(liteSH CXX)
+project(AWS CXX)
 
-add_subdirectory(src)
+add_subdirectory(liteSH)
+add_subdirectory(fctrl)
 
 
 
