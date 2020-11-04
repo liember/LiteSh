@@ -1,7 +1,6 @@
 #include <iostream>
-#include "sighandl.hpp"
-#include "proc.hpp"
-#include "fctrl.hpp"
+
+#include <MyExcept.hpp>
 
 using namespace std;
 

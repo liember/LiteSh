@@ -5,5 +5,6 @@ file(GLOB_RECURSE SOURCES LIST_DIRECTORIES true *.hpp *.cpp)
 set(SOURCES ${SOURCES})
 
 add_executable(${BINARY}_run ${SOURCES})
+include_directories(.)
 
 add_library(${BINARY}_lib STATIC ${SOURCES})
