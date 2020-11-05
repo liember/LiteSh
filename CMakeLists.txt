@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 
+project(AWS CXX)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-project(AWS CXX)
+set(LIBS ${CMAKE_SOURCE_DIR}/libs)
 
 add_subdirectory(liteSH)
 add_subdirectory(fctrl)
