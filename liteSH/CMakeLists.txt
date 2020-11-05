@@ -3,7 +3,7 @@ project(liteSH CXX)
 
 set(SOURCES main.cpp)
 
-include_directories(${INCLUDE})
+include_directories(${LIBS})
 include_directories(sig)
 include_directories(proc)
 

@@ -1,16 +1,20 @@
 
 project(fctrl CXX)
 
-set(SOURCES main.cpp)
+set(SOURCES main.cpp argexec.hpp)
+add_executable(fctrl ${SOURCES})
 
-include_directories(${LIBS}/file ${LIBS}/argpars ${LIBS})
+
 
 add_subdirectory(${LIBS}/file file)
 add_subdirectory(${LIBS}/argpars argpars)
 
-add_executable(fctrl ${SOURCES})
+
 
 target_link_libraries(fctrl file)
 target_link_libraries(fctrl argpars)
 
-
+include_directories(fctrl PUBLIC ./ )
+include_directories(fctrl PUBLIC ${LIBS}/argpars )
+include_directories(fctrl PUBLIC ${LIBS}/file )
+include_directories(fctrl PUBLIC ${LIBS})
