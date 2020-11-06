@@ -1,11 +1,11 @@
 #include <iostream>
-#include "argpars.hpp"
+#include "argexec.hpp"
 
 using namespace std;
 
 int main(int argc, char **argv)
 {
-    argpars line(argc, argv);
+    argprox line(argc, argv);
     auto params = line.GetParams();
     for (auto &&i : params)
     {
