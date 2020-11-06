@@ -8,6 +8,7 @@
 #include "argpars.hpp"
 #include "exeptions.hpp"
 #include "file.hpp"
+#include "procfs.hpp"
 
 void argexec(int argc, char **argv);
 
