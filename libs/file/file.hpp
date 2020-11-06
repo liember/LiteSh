@@ -27,16 +27,4 @@ namespace fctrl
         File(std::string filename);
     };
 
-    namespace
-    {
-        bool IsNum(const char *ch)
-        {
-            for (; *ch; ch++)
-                if (!isdigit(*ch))
-                    return false;
-            return true;
-        }
-    } // namespace
-
-    std::vector<std::pair<int, std::string>> &GetProcs();
 }; // namespace fctrl

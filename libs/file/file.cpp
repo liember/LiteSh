@@ -44,32 +44,3 @@ File::File(std::string filename) : fname(filename)
     if (!fs::exists(fname))
         throw Except(msg);
 }
-
-std::vector<std::pair<int, std::string>> GetProcs()
-{
-    std::vector<std::pair<int, std::string>> result;
-    const std::string procdir = "/proc/";
-
-    if (!fs::exists(procdir))
-        throw Except("Couldn't open the PROC_DIRECTORY");
-
-    for (auto &p : fs::directory_iterator(procdir))
-    {
-        std::string name = p.path().filename();
-        if (IsNum(name.c_str())) // only pid-proc directories needed
-        {
-            std::string buf, fpath = p.path() / "cmdline";
-            std::ifstream file(fpath);
-            getline(file, buf);
-
-            if (buf.size() > 0)
-            {
-                std::pair<int, std::string> a;
-                a.first = std::stoi(name);
-                a.second = buf;
-                result.push_back(a);
-            }
-        }
-    }
-    return std::move(result);
-}
