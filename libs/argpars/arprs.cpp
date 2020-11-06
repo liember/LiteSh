@@ -1,10 +1,10 @@
 #include "argpars.hpp"
 
-std::vector<std::string> argpars::GetParams() ///< returns params from argv
+std::vector<std::string> &argpars::GetParams() ///< returns params from argv
 {
     return params;
 }
-std::vector<std::string> argpars::GetArgs() ///< returns args (taged "-" or "--") from argv
+std::vector<std::string> &argpars::GetArgs() ///< returns args (taged "-" or "--") from argv
 {
     return args;
 }
