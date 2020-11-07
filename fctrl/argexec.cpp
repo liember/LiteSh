@@ -64,12 +64,14 @@ void argexec(int argc, char **argv)
     {
         std::cout << "Arguments error (0_0)" << std::endl;
         GetHelp(fs::path(argv[0]));
+        return;
     }
     if (paths.size() > 2)
         if (paths[0] != "h")
         {
             std::cout << "Arguments paths error (0_0)" << std::endl;
             GetHelp(fs::path(argv[0]));
+            return;
         }
 
     auto token = arg_tokens[0].c_str()[0];
