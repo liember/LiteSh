@@ -1,16 +1,19 @@
 
 project(liteSH CXX)
 
+set(LIBS ${CMAKE_CURRENT_SOURCE_DIR}/libs)
 set(SOURCES main.cpp)
 
-include_directories(${LIBS})
-include_directories(sig)
-include_directories(proc)
-
-add_subdirectory(sig)
-add_subdirectory(proc)
+add_subdirectory(${LIBS}/argpars)
+add_subdirectory(${LIBS}/procfs)
+add_subdirectory(${LIBS}/file)
 
 add_executable(liteSH ${SOURCES})
 
-target_link_libraries(liteSH sig)
-target_link_libraries(liteSH proc)
+target_include_directories(liteSH PRIVATE ${LIBS})
+target_include_directories(liteSH PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
+target_link_libraries(liteSH argpars_lsh)
+target_link_libraries(liteSH procfs_lsh)
+target_link_libraries(liteSH file_lsh)
+
