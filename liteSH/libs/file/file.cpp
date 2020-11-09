@@ -3,7 +3,25 @@
 using namespace fctrl;
 
 void File::Copy(std::string path) { fs::copy(fname, path); }
-unsigned int File::Size() { return fs::file_size(fname); }
+unsigned int File::Size()
+{
+    size_t size = 0;
+    auto info = fs::status(fname);
+    if (fs::is_directory(info))
+    {
+        for (auto &p : fs::recursive_directory_iterator(fname))
+        {
+            if (!fs::is_directory(p))
+                size += fs::file_size(p);
+        }
+    }
+    else
+    {
+        size = fs::file_size(fname);
+    }
+    return size;
+}
+
 void File::Delete() { fs::remove_all(fname.c_str()); }
 
 void File::Move(std::string fpath)
