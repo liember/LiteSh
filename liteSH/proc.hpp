@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __PROC_H__
+#define __PROC_H__
 
 #include <string>
 #include <unistd.h>
@@ -10,8 +11,6 @@
 #include "exeptions.hpp"
 #include "procfs.hpp"
 #include "file.hpp"
-
-auto CheckExists(std::string path) { return std::filesystem::exists(path); }
 
 class subproc
 {
@@ -40,12 +39,18 @@ private:
 
 public:
     subproc() {}
-    void Spawn(std::string Path, bool In_fone)
+
+    ~subproc()
     {
-        if (!CheckExists(Path))
+        KillChilds();
+    }
+
+    void Spawn(std::string Path, char **args, bool In_fone)
+    {
+        if (!std::filesystem::exists(Path))
         {
             auto prox_path = "/usr/bin/" + Path;
-            if (CheckExists(prox_path))
+            if (std::filesystem::exists(prox_path))
             {
                 Path = prox_path;
             }
@@ -59,8 +64,8 @@ public:
         auto pid = fork();
         if (pid == 0)
         {
-            auto execl_arg = Path.c_str();
-            auto iExecRetVal = execl(execl_arg, execl_arg, (char *)NULL);
+            auto cmd = Path.c_str();
+            auto iExecRetVal = execv(cmd, args);
             if (iExecRetVal == -1)
             {
                 _exit(EXIT_FAILURE);
@@ -77,7 +82,8 @@ public:
 
             if (spawn_res != 0 && spawn_res != pid)
             {
-                auto err_msg = "Faild to start process with pid " + std::to_string(pid) + " status " + std::to_string(status) + " result " + std::to_string(spawn_res);
+                auto err_msg = "Faild to start process with pid " + std::to_string(pid) +
+                               " status " + std::to_string(status) + " result " + std::to_string(spawn_res);
                 throw Except(err_msg);
             }
         }
@@ -87,3 +93,5 @@ public:
         }
     }
 };
+
+#endif // __PROC_H__
