@@ -68,3 +68,7 @@ build/
 .vscode/
 
 lol/
+
+.idea/
+
+cmake-build-debug/
