@@ -68,7 +68,7 @@ public:
             auto iExecRetVal = execv(cmd, args);
             if (iExecRetVal == -1)
             {
-                _exit(EXIT_FAILURE);
+                exit(EXIT_FAILURE);
             }
             exit(EXIT_SUCCESS); // if files are openned they are dont closed
         }

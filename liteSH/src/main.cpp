@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "argexec.hpp"
-#include "cmdline.hpp"
+#include "src/argexec.hpp"
+#include "src/cmdline.hpp"
 #include "sighandl.hpp"
 
 int main(int argc, char **argv)
@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 
     constexpr std::string_view fctrl_path = "./fctrl/fctrl";
 
-    while (1)
+    while (true)
     {
         if (shell.input())
         {

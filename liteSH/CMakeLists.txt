@@ -2,7 +2,7 @@
 project(liteSH CXX)
 
 set(LIBS ${CMAKE_CURRENT_SOURCE_DIR}/libs)
-set(SOURCES main.cpp argexec.cpp argexec.hpp proc.hpp sighandl.hpp)
+set(SOURCES src/main.cpp src/argexec.cpp src/argexec.hpp src/proc.hpp src/sighandl.hpp)
 
 add_subdirectory(${LIBS}/argpars)
 add_subdirectory(${LIBS}/procfs)
