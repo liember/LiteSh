@@ -16,6 +16,8 @@ add_subdirectory(libs/procfs)
 add_subdirectory(liteSH)
 add_subdirectory(fctrl)
 
+add_subdirectory(test)
+
 
 
 
