@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-class argpars
+class argsParser
 {
 private:
     std::vector<std::string> args;
@@ -13,5 +13,5 @@ public:
     std::vector<std::string> &GetParams(); ///< returns params from argv
     std::vector<std::string> &GetArgs();   ///< returns args (taged "-" or "--") from argv
 
-    argpars(int argc, char **argv);
+    argsParser(int argc, char **argv);
 };

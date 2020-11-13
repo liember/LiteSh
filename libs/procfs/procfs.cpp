@@ -13,7 +13,7 @@ namespace
     }
 } // namespace
 
-std::vector<std::pair<int, std::string>> &procfs::GetProcs()
+std::vector<std::pair<int, std::string>> &procfs::getProcesses()
 {
     auto result = new std::vector<std::pair<int, std::string>>();
     constexpr std::string_view procdir = "/proc/";

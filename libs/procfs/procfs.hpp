@@ -10,5 +10,5 @@
 
 namespace procfs
 {
-    std::vector<std::pair<int, std::string>> &GetProcs();
+    std::vector<std::pair<int, std::string>> &getProcesses();
 } // namespace procfs

@@ -11,20 +11,23 @@
 
 namespace fs = std::filesystem;
 
-namespace fctrl
-{
-    class File
-    {
+namespace file {
+    class File {
     private:
-        const std::string fname;
+        const std::string &file_name;
 
     public:
-        void Copy(std::string path);
+        void Copy(const std::string &path);
+
         unsigned int Size();
+
         void Delete();
-        void Move(std::string fpath);
+
+        void Move(const std::string &destination);
+
         std::string GetContent();
-        File(std::string filename);
+
+        explicit File(const std::string &filename);
     };
 
-}; // namespace fctrl
+}; // namespace file
