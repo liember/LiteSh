@@ -2,7 +2,29 @@
 
 using namespace file;
 
-void File::Copy(const std::string &path) { fs::copy(file_name, path); }
+namespace {
+    void createDirsToFile(const std::string &destination) {
+        fs::path file_path = destination;
+        file_path.remove_filename();
+        fs::path current_dir = fs::current_path();
+        fs::create_directories(current_dir / file_path);
+    }
+}
+
+void File::Copy(const std::string &destination) {
+    if (destination != file_name) {
+        createDirsToFile(destination);
+        fs::copy(file_name, destination);
+    }
+}
+
+void File::Move(const std::string &destination) {
+    if (destination != file_name) {
+        createDirsToFile(destination);
+        fs::copy(file_name, destination);
+        Delete();
+    }
+}
 
 unsigned int File::Size() {
     size_t size = 0;
@@ -19,15 +41,6 @@ unsigned int File::Size() {
 }
 
 void File::Delete() { fs::remove_all(file_name.c_str()); }
-
-void File::Move(const std::string &destination) {
-    fs::path file_path = destination;
-    file_path.remove_filename();
-    fs::path current_dir = fs::current_path();
-    fs::create_directories(current_dir / file_path);
-    Copy(destination);
-    Delete();
-}
 
 std::string File::GetContent() {
     std::string content;
