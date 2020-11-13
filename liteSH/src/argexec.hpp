@@ -1,8 +1,8 @@
 #include "proc.hpp"
-#include "argpars.hpp"
+#include "argsParser.hpp"
 #include <iostream>
 
 namespace argexec
 {
     void ArgExec(int argc, char **argv);
-} // namespace argexec
+} // namespace args_execute

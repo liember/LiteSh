@@ -1,21 +1,21 @@
 #include "argexec.hpp"
 
 namespace {
-    class argprox : public argpars {
+    class args_proxy : public argsParser {
     private:
-        static constexpr std::array<std::pair<std::string_view, std::string_view>, 7> prox = {{
+        static constexpr std::array<std::pair<std::string_view, std::string_view>, 7> proxy = {{
                                                                                                       {"help", "h"},
                                                                                               }};
 
     public:
-        argprox(int argc, char **argv) : argpars(argc, argv) {
+        args_proxy(int argc, char **argv) : argsParser(argc, argv) {
             // prox commands (--command) to equal flag
             for (auto &i : GetArgs()) {
                 if (i.size() > 1) {
                     auto target = [i](const std::pair<std::string_view, std::string_view> &element) {
                         return element.first == i;
                     };
-                    auto[word, flag] = *std::find_if(prox.begin(), prox.end(), target);
+                    auto[word, flag] = *std::find_if(proxy.begin(), proxy.end(), target);
 
                     if (i == word) {
                         i = flag;
@@ -31,14 +31,14 @@ namespace {
     void GetHelp(fs::path p) {
         p.remove_filename();
         p /= "man.txt";
-        fctrl::File help(p.string());
+        file::File help(p.string());
         auto res = help.GetContent();
         std::cout << res;
     }
 } // namespace
 
 void argexec::ArgExec(int argc, char **argv) {
-    argprox arg(argc, argv);
+    args_proxy arg(argc, argv);
     auto arg_tokens = arg.GetArgs();
     auto paths = arg.GetParams();
 
@@ -63,7 +63,7 @@ void argexec::ArgExec(int argc, char **argv) {
     auto token = arg_tokens[0].c_str()[0];
 
     try {
-        fctrl::File *f;
+        file::File *f;
 
         if (token == 'h')
             GetHelp(fs::path(argv[0]));
