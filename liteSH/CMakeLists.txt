@@ -8,7 +8,7 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/res/man.txt
 
 add_executable(liteSH ${SOURCES})
 
-target_include_directories(liteSH PRIVATE ${LIBS})
+target_include_directories(liteSH PRIVATE ${LIBS} ${LIBS}/file ${LIBS}/argpars ${LIBS}/procfs)
 target_include_directories(liteSH PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(liteSH argpars)
