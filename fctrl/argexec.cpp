@@ -1,10 +1,10 @@
 #include "argexec.hpp"
 namespace
 {
-    class argprox : public argpars
+    class args_proxy : public argsParser
     {
     private:
-        static constexpr std::array<std::pair<std::string_view, std::string_view>, 7> prox = {{
+        static constexpr std::array<std::pair<std::string_view, std::string_view>, 7> proxy = {{
             {"help", "h"},
             {"move", "m"},
             {"copy", "c"},
@@ -15,9 +15,9 @@ namespace
         }};
 
     public:
-        argprox(int argc, char **argv) : argpars(argc, argv)
+        args_proxy(int argc, char **argv) : argsParser(argc, argv)
         {
-            // prox commands (--command) to equal flag
+            // proxy commands (--command) to equal flag
             for (auto &i : GetArgs())
             {
                 if (i.size() > 1)
@@ -25,7 +25,7 @@ namespace
                     auto target = [i](const std::pair<std::string_view, std::string_view> &element) {
                         return element.first == i;
                     };
-                    auto [word, flag] = *std::find_if(prox.begin(), prox.end(), target);
+                    auto [word, flag] = *std::find_if(proxy.begin(), proxy.end(), target);
 
                     if (i == word)
                     {
@@ -45,16 +45,16 @@ namespace
     {
         p.remove_filename();
         p /= "man.txt";
-        fctrl::File help(p.string());
+        file::File help(p.string());
         auto res = help.GetContent();
         std::cout << res;
     }
 
 } // namespace
 
-void argexec(int argc, char **argv)
+void args_execute(int argc, char **argv)
 {
-    argprox arg(argc, argv);
+    args_proxy arg(argc, argv);
     auto arg_tokens = arg.GetArgs();
     auto paths = arg.GetParams();
 
@@ -79,43 +79,43 @@ void argexec(int argc, char **argv)
     try
     {
 
-        fctrl::File *f;
+        file::File *f;
 
         switch (token)
         {
         case 'm':
             if (paths.size() != 2)
                 throw Except("2 arguments needed");
-            f = new fctrl::File(paths[0]);
+            f = new file::File(paths[0]);
             f->Move(paths[1]);
             break;
         case 'c':
             if (paths.size() != 2)
                 throw Except("2 arguments needed");
-            f = new fctrl::File(paths[0]);
+            f = new file::File(paths[0]);
             f->Copy(paths[1]);
             break;
         case 'd':
             if (paths.size() != 1)
                 throw Except("1 arguments needed");
-            f = new fctrl::File(paths[0]);
+            f = new file::File(paths[0]);
             f->Delete();
             break;
         case 's':
             if (paths.size() != 1)
                 throw Except("1 arguments needed");
-            f = new fctrl::File(paths[0]);
+            f = new file::File(paths[0]);
             std::cout << f->Size() << std::endl;
             break;
         case 'l':
             if (paths.size() != 1)
                 throw Except("1 arguments needed");
-            f = new fctrl::File(paths[0]);
+            f = new file::File(paths[0]);
             std::cout << f->GetContent() << std::endl;
             break;
         case 'p':
             if (paths.size() == 0)
-                for (auto [pid, process] : procfs::GetProcs())
+                for (auto [pid, process] : procfs::getProcesses())
                     std::cout << "Pid: " << pid << " " << process << std::endl;
             break;
         case 'h':

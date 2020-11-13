@@ -5,11 +5,11 @@
 #include <utility>
 #include <algorithm>
 
-#include "argpars.hpp"
-#include "exeptions.hpp"
+#include "argsParser.hpp"
 #include "file.hpp"
 #include "procfs.hpp"
+#include "exeptions.hpp"
 
-void argexec(int argc, char **argv);
+void args_execute(int argc, char **argv);
 
 #endif // __ARGEXEC_H__
