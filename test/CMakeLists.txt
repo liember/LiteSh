@@ -3,7 +3,7 @@ add_executable(
         unit_tests
         file.cpp
         main.cpp
-        argparser.cpp)
+        argparser.cpp http_client.cpp)
 
 add_subdirectory(googletest)
 
@@ -17,5 +17,6 @@ target_link_libraries(
         gtest_main
         file
         argpars
+        http
 )
 
