@@ -16,6 +16,7 @@ add_subdirectory(${LIBS}/http)
 
 add_subdirectory(liteSH)
 add_subdirectory(fctrl)
+add_subdirectory(Server)
 
 add_subdirectory(test)
 
