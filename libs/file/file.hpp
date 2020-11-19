@@ -7,7 +7,7 @@
 #include <vector>
 #include <utility>
 
-#include "exeptions.hpp"
+#include "exceptions.hpp"
 
 namespace fs = std::filesystem;
 
