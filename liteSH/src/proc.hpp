@@ -8,14 +8,26 @@
 #include <utility>
 #include <sys/wait.h>
 
-#include "exeptions.hpp"
+#include "exceptions.hpp"
 #include "procfs.hpp"
 #include "file.hpp"
+#include "cstdlib"
 
 class subproc {
 private:
     static constexpr std::string_view cmd_kill = "kill ";
     std::vector<std::pair<int, std::string>> childs;
+
+    static std::vector<std::string> split(const std::string &s, char delim)
+    {
+        std::vector<std::string> elems;
+        std::stringstream ss(s);
+        std::string item;
+        while (std::getline(ss, item, delim)) {
+            elems.push_back(item);
+        }
+        return elems;
+    }
 
     void kill() {
         for (auto &[supp_pid, supp_path] : childs) {
@@ -42,10 +54,14 @@ public:
 
     void Spawn(std::string Path, char **args, bool background) {
         if (!std::filesystem::exists(Path)) {
-            auto proxy_path = "/usr/bin/" + Path;
-            if (std::filesystem::exists(proxy_path)) {
-                Path = proxy_path;
-            } else {
+            auto proxy_paths = split(getenv("PATH"), ':');
+            for(auto &i : proxy_paths){
+                auto target_path = i + "/" + Path;
+                if (std::filesystem::exists(target_path)) {
+                    Path = target_path;
+                }
+            }
+            if (!std::filesystem::exists(Path)) {
                 auto err_msg = "File " + Path + " is not exists";
                 throw Except(err_msg);
             }

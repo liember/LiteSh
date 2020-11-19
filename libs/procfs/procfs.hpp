@@ -6,7 +6,7 @@
 #include <filesystem>
 #include <fstream>
 
-#include "exeptions.hpp"
+#include "exceptions.hpp"
 
 namespace procfs
 {

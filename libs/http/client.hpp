@@ -10,7 +10,7 @@
 #include <arpa/inet.h>
 #include <string>
 
-#include "exeptions.hpp"
+#include "exceptions.hpp"
 
 namespace http {
     class client {
@@ -18,10 +18,10 @@ namespace http {
         int socket_desc;
         struct sockaddr_in _server;
     public:
-        client(std::string ip_addr);
+        client(std::string ip_addr, int port);
         ~client();
 
-        void sendData(char *message);
+        void sendData(const char *message);
 
         char *recvData();
     };
