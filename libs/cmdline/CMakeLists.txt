@@ -1,0 +1,5 @@
+project(cmdline)
+set(SOURCE_LIB cmdline.cpp cmdline.hpp)
+add_library(cmdline STATIC ${SOURCE_LIB})
+target_include_directories(cmdline PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
+target_include_directories(cmdline PRIVATE ${LIBS})
