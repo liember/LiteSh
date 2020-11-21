@@ -34,7 +34,7 @@ TEST(cmdline,get_cv){
 
     ASSERT_EQ(shell.size(), result.size());
     for (int i = 0; i < shell.size(); ++i) {
-        ASSERT_STREQ(result.get()[i], shell[i].c_str());
+        ASSERT_STREQ(result.raw()[i], shell[i].c_str());
     }
 }
 
