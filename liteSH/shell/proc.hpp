@@ -18,8 +18,7 @@ private:
     static constexpr std::string_view cmd_kill = "kill ";
     std::vector<std::pair<int, std::string>> childs;
 
-    static std::vector<std::string> split(const std::string &s, char delim)
-    {
+    static std::vector<std::string> split(const std::string &s, char delim) {
         std::vector<std::string> elems;
         std::stringstream ss(s);
         std::string item;
@@ -55,7 +54,7 @@ public:
     void Spawn(std::string Path, char **args, bool background) {
         if (!std::filesystem::exists(Path)) {
             auto proxy_paths = split(getenv("PATH"), ':');
-            for(auto &i : proxy_paths){
+            for (auto &i : proxy_paths) {
                 auto target_path = i + "/" + Path;
                 if (std::filesystem::exists(target_path)) {
                     Path = target_path;
@@ -79,15 +78,15 @@ public:
             int status = 0, spawn_res = 0;
             if (!background)
                 spawn_res = waitpid(pid, &status, 0);
-            else
+            else {
                 spawn_res = waitpid(pid, &status, WNOHANG);
-
+                childs.emplace_back(pid, Path);
+            }
             if (spawn_res != 0 && spawn_res != pid) {
                 auto err_msg = "Failed to start process with pid " + std::to_string(pid) +
                                " status " + std::to_string(status) + " result " + std::to_string(spawn_res);
                 throw Except(err_msg);
             }
-            childs.emplace_back(pid,Path);
         } else {
             throw Except("Failed to create process");
         }
