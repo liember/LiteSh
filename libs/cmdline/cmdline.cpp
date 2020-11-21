@@ -1,7 +1,5 @@
 #include "cmdline.hpp"
 
-std::vector<std::string> &cmdline::get_v() { return input_content; }
-
 unsigned long cmdline::size() { return input_content.size(); }
 
 cmdline::cmdline(std::string_view name, unsigned int buff_size) :
@@ -22,19 +20,21 @@ bool cmdline::input(std::istream &inp_stream) {
     return false;
 }
 
-char **cmdline::get_cv() {
+std::vector<std::string> cmdline::get_v() { return input_content; }
+
+pVector<char> cmdline::get_cv() {
     auto count = input_content.size();
     if (count == 0)
         throw Except("cmdline size is 0 cant return char vector");
-    auto result = (char **) malloc(sizeof(char *) * (count + 1));
+    pVector<char> result;
 
     for (auto i = 0; i < count; i++) {
         auto word_size = input_content[i].size() + 1;
-        result[i] = (char *) malloc(sizeof(char) * word_size);
-        strcpy(result[i], input_content[i].c_str());
+        auto el = new char[word_size];
+        strcpy(el, input_content[i].c_str());
+        result.push_back(el);
     }
-
-    result[count + 1] = (char *) nullptr;
+    result.release();
     return result;
 }
 

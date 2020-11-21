@@ -28,7 +28,7 @@ TEST(pVector, release) {
     }
     vec->release();
     for (int i = 0; i < vec->size(); ++i) {
-        ASSERT_STREQ(vec->get()[i], a[i].c_str());
+        ASSERT_STREQ(vec->raw()[i], a[i].c_str());
     }
     ASSERT_NO_THROW(delete vec);
 }
@@ -44,13 +44,13 @@ TEST(pVector, copy_released) {
     vec1->release();
 
     for (int i = 0; i < 5; ++i) {
-        ASSERT_STREQ(a[i].c_str(), vec1->get()[i]);
+        ASSERT_STREQ(a[i].c_str(), vec1->raw()[i]);
     }
 
     pVector<char> vec2(*vec1);
     delete vec1;
 
-    auto chk = vec2.get();
+    auto chk = vec2.raw();
     for (int i = 0; i < 5; ++i) {
         ASSERT_STREQ(a[i].c_str(), chk[i]);
     }
@@ -68,7 +68,7 @@ TEST(pVector, copy_unreleased) {
     pVector<char> vec2(*vec1);
     delete vec1;
     vec2.release();
-    auto chk = vec2.get();
+    auto chk = vec2.raw();
     for (int i = 0; i < 5; ++i) {
         ASSERT_STREQ(a[i].c_str(), chk[i]);
     }
@@ -88,7 +88,7 @@ pVector<char> foo() {
 
 TEST(pVector, return_from_function) {
     auto vec = foo();
-    auto res = vec.get();
+    auto res = vec.raw();
     for (int i = 0; i < vec.size(); ++i) {
         ASSERT_STREQ(res[i], a[i].c_str());
     }

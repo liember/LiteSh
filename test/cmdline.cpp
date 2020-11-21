@@ -24,24 +24,17 @@ TEST(cmdline,dyn_init){
     ASSERT_STREQ(shell.getName().data(),name.c_str());
 }
 
-//TEST(cmdline,get_cv){
-//    cmdline shell(name, buf_size);
-//    std::stringstream ss1(test_string);
-//    std::stringstream ss2(test_string);
-//    shell.input(ss1);
-//
-//    auto result = shell.get_cv();
-//
-//    for (int i = 0; i < shell.size(); ++i) {
-//        char word[20];
-//        ss2 >> word;
-//        ASSERT_STREQ(result[i], word);
-//    }
-//
-//    for (int i = 0; i < shell.size(); ++i) {
-//        std::cout << result[i] << std::endl;
-//        free(result[i]);
-//    }
-//    free(result);
-//}
+TEST(cmdline,get_cv){
+    cmdline shell(name, buf_size);
+    std::stringstream ss1(test_string);
+    std::stringstream ss2(test_string);
+    shell.input(ss1);
+
+    auto result = shell.get_cv();
+
+    ASSERT_EQ(shell.size(), result.size());
+    for (int i = 0; i < shell.size(); ++i) {
+        ASSERT_STREQ(result.get()[i], shell[i].c_str());
+    }
+}
 

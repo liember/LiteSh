@@ -7,6 +7,7 @@
 #include <fstream>
 
 #include "exceptions.hpp"
+#include "pVector.hpp"
 
 #ifndef __CMDLINE_H__
 #define __CMDLINE_H__
@@ -25,9 +26,9 @@ public:
 
     bool input(std::istream &inp_stream);
 
-    std::vector<std::string> &get_v();
+    std::vector<std::string> get_v();
 
-    char **get_cv();
+    pVector<char> get_cv();
 
     unsigned long size();
 

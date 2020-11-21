@@ -72,7 +72,7 @@ public:
         return storage->size();
     }
 
-    auto get() const {
+    auto raw() const {
         if (*released)
             return res;
         throw Except("Unreleased pVector cant give pointer to vector");
