@@ -6,6 +6,8 @@ set(SOURCES main.cpp argexec.cpp argexec.hpp sighandl.hpp)
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/res/man.txt
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
+find_package(Boost 1.73.0 REQUIRED system)
+
 add_executable(liteSH ${SOURCES})
 add_subdirectory(shell)
 
@@ -15,4 +17,6 @@ target_include_directories(liteSH PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(liteSH shell)
 target_link_libraries(liteSH argpars)
 target_link_libraries(liteSH http)
+
+target_link_libraries(liteSH ${Boost_LIBRARIES} pthread)
 
