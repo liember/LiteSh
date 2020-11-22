@@ -21,8 +21,9 @@ private:
     subproc procs;
 
 public:
-    explicit shell(std::string shell_name);
-    void input(std::istream &inp_stream);
+    explicit shell(const std::string& shell_name);
+    bool input(std::istream &inp_stream);
+    std::string_view getShellName();
 };
 
 
