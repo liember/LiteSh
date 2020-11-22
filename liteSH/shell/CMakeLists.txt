@@ -5,6 +5,9 @@ add_library(shell STATIC ${SOURCE_LIB})
 target_include_directories(shell PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(liteSH PRIVATE ${LIBS})
 
+find_package(Boost 1.73.0 REQUIRED system)
+target_link_libraries(shell ${Boost_LIBRARIES} pthread)
+
 target_link_libraries(shell cmdline)
 target_link_libraries(shell procfs)
 target_link_libraries(shell file)

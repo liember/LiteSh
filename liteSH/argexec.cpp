@@ -4,8 +4,9 @@ namespace {
     class args_proxy : public argsParser {
     private:
         static constexpr std::array<std::pair<std::string_view, std::string_view>, 7> proxy = {{
-                                                                                                      {"help", "h"},
-                                                                                              }};
+                                                                                                       {"help", "h"},
+                                                                                                       {"server", "s"},
+                                                                                               }};
 
     public:
         args_proxy(int argc, char **argv) : argsParser(argc, argv) {
@@ -37,7 +38,7 @@ namespace {
     }
 } // namespace
 
-void argexec::ArgExec(int argc, char **argv) {
+argexec::init_flag argexec::ArgExec(int argc, char **argv) {
     args_proxy arg(argc, argv);
     auto arg_tokens = arg.GetArgs();
     auto paths = arg.GetParams();
@@ -45,35 +46,35 @@ void argexec::ArgExec(int argc, char **argv) {
     paths.erase(paths.begin()); // firs element it self binary path
 
     if (arg_tokens.empty()) {
-        return;
+        return init_flag::local;
     }
 
     if (arg_tokens.size() > 1) {
         std::cout << "Arguments error (0_0)" << std::endl;
         GetHelp(fs::path(argv[0]));
-        return;
+        return init_flag::local;
     }
     if (!paths.empty())
         if (paths[0] != "h") {
             std::cout << "Arguments paths error (0_0)" << std::endl;
             GetHelp(fs::path(argv[0]));
-            return;
+            return init_flag::local;
         }
 
     auto token = arg_tokens[0].c_str()[0];
 
     try {
-        file::File *f;
-
         if (token == 'h')
             GetHelp(fs::path(argv[0]));
-        else
+        else if (token == 's') {
+            return init_flag::server;
+        } else {
             throw Except("Undef argument");
-
+        }
     }
     catch (const std::exception &e) {
         std::cout << e.what() << '\n';
         std::cout << "try liteSh -h for help" << std::endl;
     }
-
+    return init_flag::local;
 }

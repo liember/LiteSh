@@ -17,7 +17,6 @@ add_subdirectory(${LIBS}/cmdline)
 
 add_subdirectory(liteSH)
 add_subdirectory(fctrl)
-add_subdirectory(Server)
 
 add_subdirectory(test)
 

@@ -8,5 +8,10 @@
 
 namespace argexec
 {
-    void ArgExec(int argc, char **argv);
+    enum init_flag{
+        server,
+        local
+    };
+
+    init_flag ArgExec(int argc, char **argv);
 } // namespace args_execute
