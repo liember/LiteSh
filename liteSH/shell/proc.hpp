@@ -2,22 +2,44 @@
 #define __PROC_H__
 
 #include <string>
-#include <unistd.h>
 #include <vector>
 #include <algorithm>
 #include <utility>
 #include <sys/wait.h>
+
+#include "cstdio"
+#include "unistd.h"
 
 #include "exceptions.hpp"
 #include "procfs.hpp"
 #include "file.hpp"
 #include "cstdlib"
 
+#define NUM_PIPES          2
+
+#define PARENT_WRITE_PIPE  0
+#define PARENT_READ_PIPE   1
+/* always in a pipe[], pipe[0] is for read and
+   pipe[1] is for write */
+#define READ_FD  0
+#define WRITE_FD 1
+
+#define PARENT_READ_FD  ( pipes[PARENT_READ_PIPE][READ_FD]   )
+#define PARENT_WRITE_FD ( pipes[PARENT_WRITE_PIPE][WRITE_FD] )
+
+#define CHILD_READ_FD   ( pipes[PARENT_WRITE_PIPE][READ_FD]  )
+#define CHILD_WRITE_FD  ( pipes[PARENT_READ_PIPE][WRITE_FD]  )
+
 class subproc {
 private:
+    int pipes[NUM_PIPES][2];
     static constexpr std::string_view cmd_kill = "kill ";
     std::vector<std::pair<int, std::string>> childs;
 
+    std::string out_buffer;
+    char buffer[2000];
+
+private:
     static std::vector<std::string> split(const std::string &s, char delim) {
         std::vector<std::string> elems;
         std::stringstream ss(s);
@@ -51,6 +73,10 @@ public:
         kill();
     }
 
+    std::string getOutBuffer()  {
+        return std::move(out_buffer);
+    }
+
     void Spawn(std::string Path, char **args, bool background) {
         if (!std::filesystem::exists(Path)) {
             auto proxy_paths = split(getenv("PATH"), ':');
@@ -66,18 +92,40 @@ public:
             }
         }
 
+        // pipes for parent to write and read
+        pipe(pipes[PARENT_READ_PIPE]);
+        pipe(pipes[PARENT_WRITE_PIPE]);
+
         auto pid = fork();
         if (pid == 0) {
             auto cmd = Path.c_str();
+
+            dup2(CHILD_READ_FD, STDIN_FILENO);
+            dup2(CHILD_WRITE_FD, STDOUT_FILENO);
+            close(CHILD_READ_FD);
+            close(CHILD_WRITE_FD);
+            close(PARENT_READ_FD);
+            close(PARENT_WRITE_FD);
+
             auto iExecRetVal = execv(cmd, args);
             if (iExecRetVal == -1) {
-                exit(EXIT_FAILURE);
+                _exit(EXIT_FAILURE);
             }
-            exit(EXIT_SUCCESS); // if files are opened they are dont closed
+            _exit(EXIT_SUCCESS); // if files are opened they are dont closed
         } else if (pid > 0) {
-            int status = 0, spawn_res = 0;
-            if (!background)
+            int status = 0, spawn_res;
+            if (!background) {
+                close(CHILD_READ_FD);
+                close(CHILD_WRITE_FD);
+                auto count = read(PARENT_READ_FD, buffer, sizeof(buffer) - 1);
+                if (count >= 0) {
+                    buffer[count] = 0;
+                    out_buffer = buffer;
+                } else {
+                    printf("IO Error\n");
+                }
                 spawn_res = waitpid(pid, &status, 0);
+            }
             else {
                 spawn_res = waitpid(pid, &status, WNOHANG);
                 childs.emplace_back(pid, Path);

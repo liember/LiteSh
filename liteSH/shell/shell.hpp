@@ -9,20 +9,25 @@
 
 #include "cmdline.hpp"
 #include "proc.hpp"
-#include "http/client.hpp"
+#include "boost/asio.hpp"
 
 class shell {
 
 private:
     static constexpr std::string_view fctrl_path = "./fctrl/fctrl";
-    static constexpr  int buff_size = 2048;
+    static constexpr int buff_size = 2048;
 
     cmdline input_line;
     subproc procs;
 
+    std::string exec_result;
 public:
-    explicit shell(const std::string& shell_name);
+    std::string getExecResult();
+
+    explicit shell(const std::string &shell_name);
+
     bool input(std::istream &inp_stream);
+
     std::string_view getShellName();
 };
 
