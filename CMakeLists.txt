@@ -12,7 +12,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_subdirectory(${LIBS}/argpars)
 add_subdirectory(${LIBS}/file)
 add_subdirectory(${LIBS}/procfs)
-add_subdirectory(${LIBS}/http)
 add_subdirectory(${LIBS}/cmdline)
 
 add_subdirectory(liteSH)
