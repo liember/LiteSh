@@ -18,13 +18,13 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - g++-7
-      - clang-7
+      - gcc-10
+      - g++-10
       - libboost-all-dev
 
 script: 
-  - export CC=gcc-7
-  - export CXX=g++-7
+  - export CC=gcc-10
+  - export CXX=g++-10
   - mkdir build
   - cd build
   - cmake ..
