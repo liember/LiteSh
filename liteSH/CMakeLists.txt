@@ -13,13 +13,14 @@ add_executable(liteSH ${SOURCES})
 add_subdirectory(shell)
 
 add_subdirectory(dynlib)
+add_subdirectory(server)
 
 target_include_directories(liteSH PUBLIC ${LIBS})
 target_include_directories(liteSH PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(liteSH shell)
 target_link_libraries(liteSH argpars)
+target_link_libraries(liteSH server)
 
-target_link_libraries(liteSH ${Boost_LIBRARIES} pthread)
 target_link_libraries(liteSH ${CMAKE_DL_LIBS})
 
