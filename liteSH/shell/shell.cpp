@@ -44,6 +44,7 @@ bool shell::input(std::istream &inp_stream) {
                 auto cmd = input_line[0];
                 auto args = input_line.get_cv();
                 procs.Spawn(input_line[0], args.raw(), false);
+                exec_result = procs.getOutBuffer();
             } else if (input_line[0] == "q") {
                 return false;
             } else if (input_line[0] == "spawn") {
