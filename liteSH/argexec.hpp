@@ -1,3 +1,5 @@
+#pragma once
+
 #include "argsParser.hpp"
 #include <iostream>
 #include "array"
@@ -10,7 +12,8 @@ namespace argexec
 {
     enum init_flag{
         server,
-        local
+        dlload,
+        local,
     };
 
     init_flag ArgExec(int argc, char **argv);

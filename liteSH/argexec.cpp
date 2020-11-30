@@ -1,4 +1,5 @@
 #include "argexec.hpp"
+#include "dlload.h"
 
 namespace {
     class args_proxy : public argsParser {
@@ -6,6 +7,7 @@ namespace {
         static constexpr std::array<std::pair<std::string_view, std::string_view>, 7> proxy = {{
                                                                                                        {"help", "h"},
                                                                                                        {"server", "s"},
+                                                                                                       {"dlload", "l"},
                                                                                                }};
 
     public:
@@ -54,13 +56,6 @@ argexec::init_flag argexec::ArgExec(int argc, char **argv) {
         GetHelp(fs::path(argv[0]));
         return init_flag::local;
     }
-    if (!paths.empty())
-        if (paths[0] != "h") {
-            std::cout << "Arguments paths error (0_0)" << std::endl;
-            GetHelp(fs::path(argv[0]));
-            return init_flag::local;
-        }
-
     auto token = arg_tokens[0].c_str()[0];
 
     try {
@@ -68,6 +63,9 @@ argexec::init_flag argexec::ArgExec(int argc, char **argv) {
             GetHelp(fs::path(argv[0]));
         else if (token == 's') {
             return init_flag::server;
+        } else if (token == 'l') {
+            loadLib(paths[0], paths[1]);
+            return init_flag::dlload;
         } else {
             throw Except("Undef argument");
         }
