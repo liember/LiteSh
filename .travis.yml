@@ -17,5 +17,5 @@ compiler:
 script: 
   - mkdir build
   - cd build
-  - cmkae ..
-  - cmkae --build
+  - cmake ..
+  - cmake --build
