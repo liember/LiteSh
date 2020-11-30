@@ -9,8 +9,7 @@ before_install:
 
 notifications:
   email: false
- 
-install: make get-deps
+
 compiler:
   - clang
   - gcc
