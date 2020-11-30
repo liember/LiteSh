@@ -14,10 +14,15 @@ compiler:
   - clang
   - gcc
 
-install:
-  - sudo apt-get install libboost-all-dev
-  - sudo apt install clang-6.0
-  - sudo apt-get install gcc-8 g++-8
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-7
+      - clang-7
+      - libboost-all-dev
 
 script: 
   - mkdir build
