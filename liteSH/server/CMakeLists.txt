@@ -5,7 +5,7 @@ add_library(server STATIC ${SOURCE_LIB})
 target_include_directories(server PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(server PUBLIC ${LIBS})
 
-find_package(Boost 1.73.0 REQUIRED system)
+find_package(Boost 1.65.1 REQUIRED system)
 target_link_libraries(server ${Boost_LIBRARIES} pthread)
 
 target_link_libraries(server shell)

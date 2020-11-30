@@ -7,8 +7,6 @@ set(SOURCES main.cpp argexec.cpp argexec.hpp sighandl.hpp dlload.h)
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/res/man.txt
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
-find_package(Boost 1.73.0 REQUIRED system)
-
 add_executable(liteSH ${SOURCES})
 add_subdirectory(shell)
 
