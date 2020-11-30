@@ -10,9 +10,7 @@ before_install:
 notifications:
   email: false
 
-compiler:
-  - clang
-  - gcc
+compiler: gcc
 
 
 addons:
@@ -25,6 +23,8 @@ addons:
       - libboost-all-dev
 
 script: 
+  - export CC=gcc-7
+  - export CXX=g++-7
   - mkdir build
   - cd build
   - cmake ..
