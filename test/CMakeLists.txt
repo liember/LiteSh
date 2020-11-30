@@ -3,7 +3,9 @@ add_executable(
         unit_tests
         file.cpp
         main.cpp
-        argparser.cpp cmdline.cpp pVector.cpp)
+        argparser.cpp
+        cmdline.cpp
+        pVector.cpp)
 
 add_subdirectory(googletest)
 
@@ -17,7 +19,6 @@ target_link_libraries(
         gtest_main
         file
         argpars
-        http
         cmdline
 )
 
