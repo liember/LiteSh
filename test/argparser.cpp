@@ -6,11 +6,11 @@
 #include "argpars/argsParser.hpp"
 
 char *a[]{
-        "--someword",
-        "--oneword",
-        "--twoword",
-        "-w",
-        "wasd",
+        (char *)"--someword",
+        (char *)"--oneword",
+        (char *)"--twoword",
+        (char *)"-w",
+        (char *)"wasd",
 };
 
 const std::vector<std::string> args_v{"someword",

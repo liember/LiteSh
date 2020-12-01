@@ -72,3 +72,5 @@ lol/
 .idea/
 
 cmake-build-debug/
+
+cmake-build-debug-coverage/

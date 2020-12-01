@@ -34,7 +34,7 @@ public:
 
     ~pVector() {
         if (*ref_counter <= 1) {
-            if (released)
+            if (*released)
                 delete res;
             for (auto &&i : *storage) {
                 delete i;

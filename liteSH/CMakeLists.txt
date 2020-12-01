@@ -1,13 +1,17 @@
 
 project(liteSH CXX)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1z")
+
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(SOURCES main.cpp argexec.cpp argexec.hpp sighandl.hpp dlload.h)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/res/man.txt
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
-find_package(Boost 1.73.0 REQUIRED system)
 
 add_executable(liteSH ${SOURCES})
 add_subdirectory(shell)
