@@ -5,7 +5,6 @@
 #include "gtest/gtest.h"
 #include "cmdline/cmdline.hpp"
 #include <string>
-#include "strstream"
 
 auto buf_size = 2059;
 std::string name = "shell";
