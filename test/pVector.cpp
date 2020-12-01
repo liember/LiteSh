@@ -5,7 +5,7 @@
 #include "gtest/gtest.h"
 #include "pVector.hpp"
 
-const static std::string a[] = {"word1", "word2", "word3", "word4", "word5"};
+std::string a[] = {"word1", "word2", "word3", "word4", "word5"};
 
 TEST(pVector, memory) {
     auto vec = new pVector<char>;
@@ -15,6 +15,7 @@ TEST(pVector, memory) {
         strcpy(w1, "word");
         vec->push_back(w1);
     }
+    ASSERT_EQ(vec->size(), 1000);
     ASSERT_NO_THROW(delete vec);
 }
 
