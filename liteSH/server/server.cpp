@@ -28,7 +28,7 @@ void server::session(tcp::socket sock) {
                 } else if (input_res)
                     boost::asio::write(sock, boost::asio::buffer(success, 20));
                 else
-                    boost::asio::write(sock, boost::asio::buffer(fail, 20));
+                   break;
             }
         }
     }
@@ -50,6 +50,14 @@ void server::start(){
     }
 }
 
-const boost::asio::io_service &server::getIoService() const {
+[[maybe_unused]] const boost::asio::io_service &server::getIoService() const {
     return io_service;
+}
+
+[[maybe_unused]] bool server::isRun() const {
+    return run;
+}
+
+[[maybe_unused]] void server::setRun(bool _run) {
+    server::run = _run;
 }

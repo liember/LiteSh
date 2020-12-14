@@ -17,6 +17,7 @@ private:
     static constexpr char *fail = (char *) "Command unexpected\n";
 
     bool run;
+private:
 
     boost::asio::io_service io_service;
     boost::asio::ip::tcp::acceptor a;
@@ -25,7 +26,11 @@ private:
 
 public:
 
-    [[nodiscard]] const boost::asio::io_service &getIoService() const;
+    [[maybe_unused]] [[nodiscard]] bool isRun() const;
+
+    [[maybe_unused]] void setRun(bool _run);
+
+    [[maybe_unused]] [[nodiscard]] const boost::asio::io_service &getIoService() const;
 
     explicit server(unsigned short port);
 

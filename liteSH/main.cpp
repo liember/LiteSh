@@ -7,14 +7,19 @@
 #include "sighandl.hpp"
 #include "shell.hpp"
 #include "server.hpp"
+#include "thread"
 
 int main(int argc, char **argv) {
     static auto sig = sighandl::getInstance();
     auto init_rule = argexec::ArgExec(argc, argv);
+    std::thread *t = nullptr;
 
     if (init_rule == argexec::server) {
-        server s(8888);
-        s.start();
+        t = new std::thread([]() {
+            server s(8888);
+            s.start();
+        });
+        std::cout << "server has been started\n";
     } else {
         shell sh("LiteSh");
         do {
@@ -25,5 +30,7 @@ int main(int argc, char **argv) {
             std::cout << "|>>|" << sh.getShellName() << ": ";
         } while (sh.input(std::cin));
     }
+    if (t)
+        t->join();
     return 0;
 }
