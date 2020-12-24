@@ -41,11 +41,10 @@ namespace
         }
     };
 
-    void GetHelp(fs::path p)
+    void GetHelp()
     {
-        p.remove_filename();
-        p /= "man.txt";
-        file::File help(p.string());
+        auto help_f = "/opt/fctrl/man.txt";
+        file::File help(help_f);
         auto res = help.GetContent();
         std::cout << res;
     }
@@ -75,7 +74,6 @@ void args_execute(int argc, char **argv)
         }
 
     auto token = arg_tokens[0].c_str()[0];
-
     try
     {
 
@@ -119,8 +117,9 @@ void args_execute(int argc, char **argv)
                     std::cout << "Pid: " << pid << " " << process << std::endl;
             break;
         case 'h':
-            GetHelp(fs::path(argv[0]));
-            break;
+            f = new file::File();
+            std::cout << f->GetContent() << std::endl;	    
+	    break;
         default:
             throw Except("Undef argument");
             break;

@@ -31,10 +31,8 @@ namespace {
         }
     };
 
-    void GetHelp(fs::path p) {
-        p.remove_filename();
-        p /= "man.txt";
-        file::File help(p.string());
+    void GetHelp() {
+        file::File help("/opt/litesh/man.txt");
         auto res = help.GetContent();
         std::cout << res;
     }
