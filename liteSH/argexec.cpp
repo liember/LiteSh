@@ -51,14 +51,14 @@ argexec::init_flag argexec::ArgExec(int argc, char **argv) {
 
     if (arg_tokens.size() > 1) {
         std::cout << "Arguments error (0_0)" << std::endl;
-        GetHelp(fs::path(argv[0]));
+        GetHelp();
         return init_flag::local;
     }
     auto token = arg_tokens[0].c_str()[0];
 
     try {
         if (token == 'h')
-            GetHelp(fs::path(argv[0]));
+            GetHelp();
         else if (token == 's') {
             return init_flag::server;
         } else if (token == 'l') {
