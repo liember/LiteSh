@@ -1,0 +1,6 @@
+#!/bin/sh
+
+rm /usr/local/bin/fctrl
+rm /usr/local/bin/litesh
+rm -rf /opt/fctrl
+rm -rf /opt/litesh

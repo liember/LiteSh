@@ -1,0 +1,18 @@
+
+Usage: fctrl [OPTION]... [-T] SOURCE DEST
+  or:  mv [OPTION]... SOURCE... DIRECTORY
+  or:  mv [OPTION]... -t DIRECTORY SOURCE...
+
+Mandatory arguments to long options are mandatory for short options too.
+    --help, -h  get this help messgae
+    --move, -m move [FILE] to [DEST_PATH] 
+    --copy, -c copy [FILE] to [DEST_PATH]
+    --delete, -d delete [FILE]
+    --size, -s print size of file or directory [PATH]
+    --list, -l print list of directoryes into directory or content of file
+    --procs, -p prints proceses from procfs
+
+Full documentation nety
+or available locally via: tyt vse 
+
+author Ivan Grigorev

@@ -1,0 +1,10 @@
+
+Usage: liteSH [OPTION]
+
+Mandatory arguments to long options are mandatory for short options too.
+    --help, -h  get this help messgae
+
+Full documentation nety
+or available locally via: tyt vse 
+
+author Ivan Grigorev

@@ -1,0 +1,8 @@
+[Unit]
+Description=liteSh_server
+
+[Service]
+ExecStart=/usr/local/bin/litesh -s
+restart=always
+[Install]
+WantedBy=default.target
