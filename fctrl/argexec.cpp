@@ -62,14 +62,14 @@ void args_execute(int argc, char **argv)
     if (arg_tokens.size() != 1)
     {
         std::cout << "Arguments error (0_0)" << std::endl;
-        GetHelp(fs::path(argv[0]));
+        GetHelp();
         return;
     }
     if (paths.size() > 2)
         if (paths[0] != "h")
         {
             std::cout << "Arguments paths error (0_0)" << std::endl;
-            GetHelp(fs::path(argv[0]));
+            GetHelp();
             return;
         }
 
@@ -112,13 +112,12 @@ void args_execute(int argc, char **argv)
             std::cout << f->GetContent() << std::endl;
             break;
         case 'p':
-            if (paths.size() == 0)
+            if (paths.empty())
                 for (auto [pid, process] : procfs::getProcesses())
                     std::cout << "Pid: " << pid << " " << process << std::endl;
             break;
         case 'h':
-            f = new file::File();
-            std::cout << f->GetContent() << std::endl;	    
+            GetHelp();
 	    break;
         default:
             throw Except("Undef argument");

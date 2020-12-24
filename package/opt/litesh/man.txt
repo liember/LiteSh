@@ -3,6 +3,7 @@ Usage: liteSH [OPTION]
 
 Mandatory arguments to long options are mandatory for short options too.
     --help, -h  get this help messgae
+    --server, -s start aka server on port 8888
 
 Full documentation nety
 or available locally via: tyt vse 
