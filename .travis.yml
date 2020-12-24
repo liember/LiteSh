@@ -30,6 +30,7 @@ script:
   - cmake ..
   - cmake --build .
   - ./test/unit_tests
+  - cd ..
   - cp build/fctrl/fctrl package/usr/local/bin/fctrl
   - cp build/liteSH/liteSH package/usr/local/bin/litesh
   - dpkg-deb --build package/
