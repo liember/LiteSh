@@ -33,8 +33,7 @@ namespace {
 
     void GetHelp() {
         file::File help("/opt/litesh/man.txt");
-        auto res = help.GetContent();
-        std::cout << res;
+        std::cout << help.GetContent();
     }
 } // namespace
 
@@ -47,30 +46,27 @@ argexec::init_flag argexec::ArgExec(int argc, char **argv) {
 
     if (arg_tokens.empty()) {
         return init_flag::local;
-    }
+    } else {
+        auto token = arg_tokens[0].c_str()[0];
 
-    if (arg_tokens.size() > 1) {
-        std::cout << "Arguments error (0_0)" << std::endl;
-        GetHelp();
-        return init_flag::local;
-    }
-    auto token = arg_tokens[0].c_str()[0];
-
-    try {
-        if (token == 'h')
-            GetHelp();
-        else if (token == 's') {
-            return init_flag::server;
-        } else if (token == 'l') {
-            loadLib(paths[0], paths[1]);
-            return init_flag::dlload;
-        } else {
-            throw Except("Undef argument");
+        try {
+            if (token == 'h') {
+                GetHelp();
+                exit(0);
+            } else if (token == 's') {
+                return init_flag::server;
+            } else if (token == 'l') {
+                loadLib(paths[0], paths[1]);
+                return init_flag::dlload;
+            } else {
+                throw Except("Undef argument");
+            }
         }
-    }
-    catch (const std::exception &e) {
-        std::cout << e.what() << '\n';
-        std::cout << "try liteSh -h for help" << std::endl;
+        catch (const std::exception &e) {
+            std::cout << e.what() << '\n';
+            std::cout << "try liteSh -h for help" << std::endl;
+        }
+
     }
     return init_flag::local;
 }

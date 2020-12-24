@@ -14,7 +14,7 @@ namespace fs = std::filesystem;
 namespace file {
     class File {
     private:
-        const std::string &file_name;
+        const std::string file_name;
 
     public:
         void Copy(const std::string &path);
@@ -27,7 +27,7 @@ namespace file {
 
         std::string GetContent();
 
-        explicit File(const std::string &filename);
+        explicit File(std::string filename);
     };
 
 }; // namespace file

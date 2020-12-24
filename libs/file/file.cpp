@@ -1,5 +1,7 @@
 #include "file.hpp"
 
+#include <utility>
+
 using namespace file;
 
 namespace {
@@ -58,7 +60,7 @@ std::string File::GetContent() {
     return content;
 }
 
-File::File(const std::string &filename) : file_name(filename) {
+File::File(std::string filename) : file_name(std::move(filename)) {
     const std::string msg = "lab2::File error: File is not exist: [" + file_name + "]";
     if (!fs::exists(file_name))
         throw Except(msg);

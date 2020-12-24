@@ -30,3 +30,6 @@ script:
   - cmake ..
   - cmake --build .
   - ./test/unit_tests
+  - sudo dpkg -i package.deb
+  - litesh -h
+  - fctrl -h

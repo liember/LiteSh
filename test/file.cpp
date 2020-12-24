@@ -4,10 +4,9 @@
 #include <fstream>
 #include <filesystem>
 
-const std::string file_name = "file_test.txt";
-const std::string file_content = "IT IS CONTENT OF TEST FILE\n";
-const std::string folder_dest = "dest/";
-
+inline const std::string file_name = "file_test.txt";
+inline const std::string file_content = "IT IS CONTENT OF TEST FILE\n";
+inline const std::string folder_dest = "dest/";
 
 TEST(file, init_exists) {
     std::ofstream fout(file_name);
