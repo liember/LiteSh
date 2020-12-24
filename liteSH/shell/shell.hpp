@@ -14,7 +14,7 @@
 class shell {
 
 private:
-    static constexpr std::string_view fctrl_path = "./fctrl/fctrl";
+    static constexpr std::string_view fctrl_path = "/usr/local/bin/fctrl";
     static constexpr int buff_size = 2048;
 
     cmdline input_line;
