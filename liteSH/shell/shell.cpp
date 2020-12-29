@@ -4,10 +4,10 @@
 
 #include "shell.hpp"
 
-shell::shell(const std::string &shell_name) : input_line(shell_name, buff_size), procs() {
+shell::shell(const std::string &shell_name) : cmdline(shell_name, buff_size), procs() {
 }
 
-std::string_view shell::getShellName() { return input_line.getName(); }
+std::string_view shell::getShellName() { return getName(); }
 
 namespace {
     using boost::asio::ip::tcp;
@@ -36,32 +36,29 @@ namespace {
     }
 }
 
-bool shell::input(std::istream &inp_stream) {
-    if (input_line.input(inp_stream)) {
+bool shell::inputData(std::istream &inp_stream) {
+    if (input(inp_stream)) {
         try {
-            if (input_line[0] == "fctrl") {
-                input_line[0] = fctrl_path.data();
-                auto cmd = input_line[0];
-                auto args = input_line.get_cv();
-                procs.Spawn(input_line[0], args.raw(), false);
+            auto first = get_v()[0];
+            if (first == "fctrl") {
+                first = fctrl_path.data();
+                procs.Spawn(first, get_cv().raw(), false);
                 exec_result = procs.getOutBuffer();
-            } else if (input_line[0] == "q") {
+            } else if (first == "q") {
                 return false;
-            } else if (input_line[0] == "spawn") {
-                input_line.pop_front();
-                auto cmd = input_line[0];
-                auto args = input_line.get_cv();
-                procs.Spawn(cmd, args.raw(), false);
+            } else if (first == "spawn") {
+                pop_front();
+                auto args = get_cv();
+                procs.Spawn(first, args.raw(), false);
                 exec_result = procs.getOutBuffer();
-            } else if (input_line[0] == "spawnf") {
-                input_line.pop_front();
-                auto cmd = input_line[0];
-                auto args = input_line.get_cv();
-                procs.Spawn(input_line[0], input_line.get_cv().raw(), true);
-            } else if (input_line[0] == "websend") {
-                exec_result = webSend(input_line[1], input_line[2]);
+            } else if (first == "spawnf") {
+                pop_front();
+                auto args = get_cv();
+                procs.Spawn(first, get_cv().raw(), true);
+            } else if (first == "websend") {
+                exec_result = webSend(get_v()[1], get_v()[2]);
             } else {
-                std::cout << "Incorrect input" << input_line[0] << std::endl;
+                std::cout << "Incorrect input" << first << std::endl;
                 std::cout << "Enter the required action: " << std::endl;
                 std::cout << "'spawn' - spawn new process" << std::endl;
                 std::cout << "'spawnf' - Spawn a process in fone" << std::endl;

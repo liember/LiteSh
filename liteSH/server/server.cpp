@@ -19,7 +19,7 @@ void server::session(tcp::socket sock) {
             if (length > 0) {
                 std::stringstream ss(data);
                 std::cout << data << std::endl;
-                auto input_res = sh.input(ss);
+                auto input_res = sh.inputData(ss);
                 auto child_out = sh.getExecResult();
 
                 if (!child_out.empty()) {
