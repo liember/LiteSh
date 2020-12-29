@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
                 std::cout << child_out << std::endl;
             }
             std::cout << "|>>|" << sh.getShellName() << ": ";
-        } while (sh.input(std::cin));
+        } while (sh.inputData(std::cin));
     }
     if (t)
         t->join();

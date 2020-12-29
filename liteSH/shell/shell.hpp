@@ -11,13 +11,12 @@
 #include "proc.hpp"
 #include "boost/asio.hpp"
 
-class shell {
+class shell : private cmdline {
 
 private:
     static constexpr std::string_view fctrl_path = "/usr/local/bin/fctrl";
     static constexpr int buff_size = 2048;
 
-    cmdline input_line;
     subproc procs;
 
     std::string exec_result;
@@ -26,7 +25,7 @@ public:
 
     explicit shell(const std::string &shell_name);
 
-    bool input(std::istream &inp_stream);
+    bool inputData(std::istream &inp_stream);
 
     std::string_view getShellName();
 };
